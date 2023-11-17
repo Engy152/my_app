@@ -10,8 +10,8 @@ class HomePageItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left:11,right: 25.0,bottom: 17),
       child: Container(
-        width: 530,
-        height: 150,
+        width: 570,
+        height: 160,
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(25),
@@ -19,39 +19,48 @@ class HomePageItem extends StatelessWidget {
         child: Row(
           children: [
             Image.network(
+              //'images/Rectangle 3.png',
              'https://ecommerce.6sigmacode.com/${product!.productDetail!.productDetailImage![0].image!}',
               width: 150,
               height: 100,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                   product.productDetail!.productNameInEnglish!.substring(0,17),
-                  //  maxLines: 2,
-                    style:TextStyle(color: Colors.black,fontSize: 17) ,),
-                  SizedBox(height: 7,),
-                  Text(
-                      product.productDetail!.descriptionInEnglish!.toString(),
-                      style:TextStyle(color: Colors.grey,fontSize: 15)),
-                  SizedBox(height: 10,),
-                  Row(children: [
+              child: Container(
+                width: 150,
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      product.productDetail!.price.toString(),
-                    ),
-                    SizedBox(width: 50,),
-                    MaterialButton(
-                        color: Colors.blueGrey,
-                        child:
-                        Text('Buy',style: TextStyle(color: Colors.white,fontSize: 15),),
-                        height: 40,
-                        shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),),
-                        onPressed: (){})
-                  ],)
-                ],),
+                     product.productDetail!.productNameInEnglish!.toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style:TextStyle(color: Colors.black,fontSize: 17) ,),
+                    SizedBox(height: 7,),
+                    Text(
+                      //'pppp',
+                        product.productDetail!.descriptionInEnglish!.toString(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style:TextStyle(color: Colors.grey,fontSize: 15)),
+                    SizedBox(height: 10,),
+                    Row(children: [
+                      Text(
+                        product.productDetail!.price.toString(),
+                      ),
+                      SizedBox(width: 23,),
+                      MaterialButton(
+                          color: Colors.blueGrey,
+                          child:
+                          Text('Buy',style: TextStyle(color: Colors.white,fontSize: 15),),
+                          height: 40,
+                          shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),),
+                          onPressed: (){})
+                    ],)
+                  ],),
+              ),
             )
           ],
         ),

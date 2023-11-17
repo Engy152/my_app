@@ -17,8 +17,8 @@ class HomePageCubit extends Cubit<HomePageStates>
  void getAllProduct() async
   {
     emit(HomePageLoadingStates());
-
-    print('999999999999999999999');
+    listProduct = [];
+    print('999999999999999999999'); 
       Api().get(url: 'http://85.93.89.54:8020/Home/GetWishlistItems',
           headers:
       {
@@ -38,6 +38,8 @@ class HomePageCubit extends Cubit<HomePageStates>
 
             }
           print(listProduct.length);
+          print('0000000000');
+          print(listProduct[7]);
 
           emit(HomePageScseesStates());
 

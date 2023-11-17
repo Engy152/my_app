@@ -1,6 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_app/modules/screens/homeScreen.dart';
+import 'package:my_app/network/cash_helper.dart';
 import 'package:my_app/shared/components.dart';
 import 'package:my_app/shared/cubit/loginCubit/cubit.dart';
 import 'package:my_app/shared/cubit/loginCubit/states.dart';
@@ -40,6 +42,7 @@ class login extends StatelessWidget {
                           const SizedBox(height: 5.5,),
                           text(text: 'userName', fontSize: 20.0, colorText: Colors.black),
                           TextFormField(
+                            textInputAction: TextInputAction.next,
                             controller: userNameController,
                             decoration: const InputDecoration(
                               hintText: 'abc@gmail.com',
@@ -76,11 +79,20 @@ class login extends StatelessWidget {
                           TextFormField(
                             controller: passwordController,
                             keyboardType: TextInputType.visiblePassword ,
-                            obscureText: true,
+                            obscureText: LoginCubit.get(context).pass_visible,
                             onFieldSubmitted: (String value){print(value);},
-                            decoration: const InputDecoration(
-                              suffixIcon: Icon(Icons.remove_red_eye_outlined,color: Colors.black,),
-                              hintText: '*******',
+                            decoration:  InputDecoration(
+                              suffixIcon: IconButton (
+                                icon: Icon(LoginCubit.get(context).pass_visible?
+                                  Icons.visibility:Icons.visibility_off_outlined,
+
+
+                                ), onPressed: ()
+                              {
+                                LoginCubit.get(context).changePassword();
+                              },
+                              ),
+                              hintText: ' *******',
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -122,12 +134,9 @@ class login extends StatelessWidget {
                                     {
                                       LoginCubit.get(context).postLogin(
                                           userName: userNameController.text,
-                                          password: passwordController.text,
+                                          password: passwordController.text, context: context,
                                       );
-                                      // LoginCubit.get(context).userLogin(
-                                      //   userName: emailController.text,
-                                      //   password: passwordController.text, grant_type: grandController.text,
-                                      // );
+
                                     },
                                     color: mainColor,
                                     child:

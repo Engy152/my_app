@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_app/modules/screens/login.dart';
 import 'package:my_app/modules/widgets/HomePageItem.dart';
+import 'package:my_app/network/cash_helper.dart';
 import 'package:my_app/shared/cubit/HomePageCubit/cubit.dart';
 import 'package:my_app/shared/cubit/HomePageCubit/states.dart';
 
@@ -36,11 +38,33 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10,),
-                Text('Trending Products',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey,
-                  ),),
+                Row(
+                  children: [
+                    Text('Trending Products',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
+                      ),),
+                    SizedBox(width: 55,),
+                    MaterialButton(
+                        color: Colors.blueGrey,
+                        child:
+                        Text('Log out',style: TextStyle(color: Colors.white,fontSize: 15),),
+                        height: 40,
+                        shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),),
+                        onPressed: () async
+                        {
+                         await CacheHelper.removeData(key: 'token');
+                         Navigator.push(
+                             context,
+                             MaterialPageRoute(
+                                 builder: (context) => login()));
+
+                        }
+                    )
+                  ],
+                ),
                 SizedBox(height: 10,),
                 Expanded(
                   child: ListView.builder(

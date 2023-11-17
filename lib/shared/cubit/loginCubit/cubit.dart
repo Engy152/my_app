@@ -1,8 +1,11 @@
-import 'dart:convert';
 
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_app/models/user_model.dart';
+import 'package:my_app/modules/screens/homeScreen.dart';
+import 'package:my_app/network/cash_helper.dart';
 import 'package:my_app/network/http.dart';
 import 'package:my_app/shared/cubit/loginCubit/states.dart';
 
@@ -39,7 +42,7 @@ class LoginCubit extends Cubit<LoginStates>
  //    });
  //  }
 UserModel? loginmodel;
-void postLogin({
+void postLogin({required BuildContext context,
   required String userName,
   required String password
 }) async
@@ -60,9 +63,23 @@ void postLogin({
     final data = json.decode(value.body);
     print(data);
     if(value.statusCode==200){
+      print('jjjj');
       loginmodel = UserModel.fromJson(data);
-      emit(LoginSuccessStates());
+     // emit(LoginSuccessStates());
       Fluttertoast.showToast(msg: 'تم تسجيل الدخول بنجاح');
+      print('qqqqqqqqqqqq');
+   String? token = loginmodel!.accessToken;
+   CacheHelper.saveData(key: 'token', value: token)
+       .then((value)
+   {
+      //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+     Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+
+   });
+
+      emit(LoginSuccessStates());
+
+
     }else if(value.statusCode == 400)
     {
       print('error');
@@ -76,5 +93,15 @@ void postLogin({
     print('error.toString()$error');
    emit(LoginErrorStates());
   });
+}
+///////////////
+
+
+bool pass_visible = true;
+void changePassword()
+{
+
+  pass_visible = !pass_visible;
+  emit(LoginChangPasswordInitialStates());
 }
 }

@@ -5,10 +5,10 @@ class AppInitialStates extends LoginStates { }
 class LoginLodingStates extends LoginStates { }
 class LoginSuccessStates extends LoginStates
 {
-  // final UserModel loginModel;
-  LoginSuccessStates(
-      //this.loginModel
-      );
+
+  // final String tokenType;
+  // LoginSuccessStates(this.tokenType);
+
 }
 class LoginErrorStates extends LoginStates
 {
@@ -17,3 +17,5 @@ class LoginErrorStates extends LoginStates
  // LoginErrorStates(this.error);
 
 }
+
+class LoginChangPasswordInitialStates extends LoginStates { }
